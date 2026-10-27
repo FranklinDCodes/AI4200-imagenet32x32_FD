@@ -81,7 +81,7 @@ class ResidualMLP(nn.Module):
             fan_in: int, 
        	    fan_out: int,
        	    starting_feature_var: float = 2.0,
-            starting_neuron_var: float = 0.1
+            starting_neuron_var: float = 1.0
         ) -> torch.Tensor:
 
         # create sample row, shape (FAN_OUT,)
