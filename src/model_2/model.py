@@ -61,8 +61,8 @@ class ResidualMLP(nn.Module):
             if isinstance(layer, nn.Linear):
                 self._init_linear(layer)
 
-       lins = [layer for layer in self.modules() if isinstance(layer, nn.Linear)]
-       np.savetxt("sample_weights.txt", lins.detach().cpu().numpy())
+        lins = [layer for layer in self.modules() if isinstance(layer, nn.Linear)]
+        np.savetxt("sample_weights.txt", lins.detach().cpu().numpy())
 
     # initializes all the weight layers
     def _init_linear(self, layer: nn.Linear):
