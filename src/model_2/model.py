@@ -77,23 +77,23 @@ class ResidualMLP(nn.Module):
             fan_in: int, 
        	    fan_out: int,
        	    starting_feature_var: float = 2.0,
-       	    starting_neuron_var: float = 0.1
-    	) -> torch.Tensor:
+            starting_neuron_var: float = 0.1
+        ) -> torch.Tensor:
 
-    	# create sample row, shape (FAN_OUT,)
-    	sample_feat_vec = torch.randn(fan_out) * sqrt(starting_feature_var)
+        # create sample row, shape (FAN_OUT,)
+        sample_feat_vec = torch.randn(fan_out) * sqrt(starting_feature_var)
 
-    	# generate the full weight matrix in one shot, shape (FAN_IN, FAN_OUT)
-    	# each column j is noise + sample_feat_vec[j] (broadcast across rows)
-    	weight_mat_raw = torch.randn(fan_in, fan_out) * starting_neuron_var + sample_feat_vec
-	glorot_var = 2 / (fan_in + fan_out)
+        # generate the full weight matrix in one shot, shape (FAN_IN, FAN_OUT)
+        # each column j is noise + sample_feat_vec[j] (broadcast across rows)
+        weight_mat_raw = torch.randn(fan_in, fan_out) * starting_neuron_var + sample_feat_vec
+        glorot_var = 2 / (fan_in + fan_out)
 
-    	# bring back to desired distribution
-    	weight_mat = torch.sqrt(
-    	glorot_var / torch.var(weight_mat_raw, unbiased=False)
-    	) * (weight_mat_raw - weight_mat_raw.mean())
+        # bring back to desired distribution
+        weight_mat = torch.sqrt(
+        glorot_var / torch.var(weight_mat_raw, unbiased=False)
+        ) * (weight_mat_raw - weight_mat_raw.mean())
 
-    	return weight_mat
+        return weight_mat
 
     def forward(self, x):
         """Training forward pass. Returns raw logits (no softmax).
