@@ -1,6 +1,6 @@
 import torch
 import torch.nn as nn
-
+from math import sqrt
 
 # Each task differs only in its input size and its number of classes.
 # The same model class is used for all three.
