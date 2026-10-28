@@ -4,6 +4,19 @@
 **Result:** Acc: 0.9506
 
 
+### BASELINE V2 — MNIST — 2026-10-28
+
+**Change:** Baseline but with 30 epochs
+
+**Result:** Acc: 0.9802
+
+
+### BASELINE — cifar10 — 2026-10-28
+
+**Result:** Acc: 0.9802
+
+
+
 ### MODEL_2 V1 — MNIST — 2026-10-27
 
 **Change:** Used a weight initialization scheme I came up with that satisfies glorot but shifts the variance more to the matrix rows than columns
@@ -36,12 +49,6 @@
 
 **Result:** Acc: 0.9597. Not bad at all. Beats the original baseline, but doesn't beat just training the baseline longer for the same amount of time. This will lead me to give up on this weight init scheme I think.
 
-
-### BASELINE V2 — MNIST — 2026-10-28
-
-**Change:** Baseline but with 30 epochs
-
-**Result:** Acc: 0.9802
 
 
 ### model_shift V1 — MNIST — 2026-10-28

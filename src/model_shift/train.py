@@ -146,8 +146,12 @@ def shift_augment(
     return x_out, labels_out
 
 
-def prepare(X, y):
+def prepare(X, y=None):
     """Convert uint8 images (0-255) to floats in roughly [-1, 1]."""
+
+    # if no y, assume it's test data
+    if y is None:
+        return (X / 255.0 - 0.5) / 0.5
 
 
     X, y = shift_augment(
