@@ -42,3 +42,14 @@
 **Change:** Baseline but with 30 epochs
 
 **Result:** Acc: 0.9802
+
+
+### model_shift V1 — MNIST — 2026-10-28
+
+**Change:** Trained for 30 epochs (seemed to work well before) and using a shift augmentation. This one makes 5 copies of each instance with each row and col randomly shifted from -5 to +5 rows or columns by wrapping around.
+
+**Why:** Working on learning spatial invariance.
+
+**Expected:** I think it will beat the the 30 epoch baseline of 0.9802.
+
+**Result:** Acc: 0.9597. 
