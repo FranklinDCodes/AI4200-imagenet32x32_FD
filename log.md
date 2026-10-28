@@ -85,6 +85,29 @@
 
 **Expected:** I think that it will beat certainly the V2 accuracy, and hopefully it will beat the 10 epoch baseline model accuracy of 0.9506.
 
+**Result:** Acc: 0.9672. Hooray! Beat the baseline and the 5-shifted version.
+
+
+### model_shift V4 — MNIST — 2026-10-28
+
+**Change:** V3 but using AdamW and lr=0.003.
+
+**Why:** I think AdamW is better than SGD generally and ussually I've heard LR from [0.003, 0.0001] is good for Adam.
+
+**Expected:** I think that this will beat the V3 accuracy of 0.9672. It possibly wont because it will converge slower, but I think it would be better in time.
+
 **Result:** Acc: 
 
+
+### model_shift V5 — MNIST — 2026-10-28
+
+**Change:** V3 but I am using a dirty cheater loss function. Basically the loss function is weighted more heavily towards classes that are more represented using the following formula:
+
+            weights = 1 + z / 100 where z = (class_counts - class_counts.mean()) / class_counts.std()
+
+**Why:** I think AdamW is better than SGD generally and ussually I've heard LR from [0.003, 0.0001] is good for Adam.
+
+**Expected:** I think that this will beat the V3 accuracy of 0.9672. It possibly wont because it will converge slower, but I think it would be better in time.
+
+**Result:** Acc: 
 

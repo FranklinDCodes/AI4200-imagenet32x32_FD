@@ -7,7 +7,7 @@ from .model import TASKS, ResidualMLP
 
 # Baseline settings. Deliberately plain so they are easy to beat:
 # plain SGD, constant learning rate, no dropout, no schedule, no augmentation.
-LEARNING_RATE = 0.05
+LEARNING_RATE = 0.05 # 0.003
 BATCH_SIZE = 256
 EPOCHS = {"mnist": 10, "cifar10": 30, "imagenet32": 10}
 
@@ -197,7 +197,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
 
     # 3. Choose the loss and the optimizer.
     loss_fn = nn.CrossEntropyLoss()           # expects raw logits # weight=t_class_weights
-    optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
+    optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE) # AdamW
 
     # 4. The training loop.
     model.train()
