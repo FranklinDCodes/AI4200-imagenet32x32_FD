@@ -151,7 +151,7 @@ def prepare(X, y=None):
 
     # if no y, assume it's test data
     if y is None:
-        return (X / 255.0 - 0.5) / 0.5
+        return (torch.as_tensor(X).float() / 255.0 - 0.5) / 0.5
 
 
     X, y = shift_augment(

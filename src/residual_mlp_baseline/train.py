@@ -31,6 +31,11 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     """Build a new model and train it from scratch. Returns the trained model."""
     torch.manual_seed(seed)                   # makes the run reproducible
 
+    values, counts = torch.unique(torch.as_tensor(y_train).long(), return_counts=True)
+
+    print(f"Label values: {values.detach().cpu().numpy().tolist()}")
+    print(f"Label counts: {counts.detach().cpu().numpy().tolist()}")
+
     # 1. Build the model for this task. Only input size and class count differ.
     model = ResidualMLP(**TASKS[task]).to(device)
 
