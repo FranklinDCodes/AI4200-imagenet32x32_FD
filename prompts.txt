@@ -23,3 +23,11 @@ If you meant each image in the batch to get its own independent random shift, in
 
 Me:
 Yes, could you please make it so that each image has its own unique shift per each k copy of the dataset. Also, I forgot to mention that I would like negative shifts too. So really (-x_max_shift, x_max_shift) is the appropriate interval to sample from for x, e.g.
+
+Claude:
+Both. Each new instance gets a (row shift, column shift) pair, with `dy` drawn from `[-y_max_shift, y_max_shift]` and `dx` from `[-x_max_shift, x_max_shift]`, and the image is rolled along both axes at once. A pair like `(0, 2)` can come up, which is a column-only shift, but only by chance. It's one candidate among the whole grid, so most copies are shifted in both directions.
+
+Your original message said each image is "either row or column shifted," and I read that as "shifted along rows and/or columns," which is why I built it this way. If you meant each copy should be shifted along exactly one axis, the candidate set changes. It would be only the pure-row shifts `(dy, 0)` with `dy ≠ 0` and the pure-column shifts `(0, dx)` with `dx ≠ 0`, which gives `2*y_max + 2*x_max` options per image instead of the full grid. Sampling without replacement and the per-image independence would work the same way.
+
+Which did you mean? If it's the either/or version, I can add it as a `mode` argument (for example `"both"` vs `"either"`) and leave the current behavior as the default.
+

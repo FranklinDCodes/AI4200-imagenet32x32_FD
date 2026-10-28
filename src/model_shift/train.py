@@ -151,7 +151,7 @@ def prepare(X, y):
 
 
     X, y = shift_augment(
-        X,
+        torch.as_tensor(X).float(),
         y,
         5,
         5,
@@ -159,7 +159,7 @@ def prepare(X, y):
     )
 
 
-    X_normed = (torch.as_tensor(X).float() / 255.0 - 0.5) / 0.5
+    X_normed = (X / 255.0 - 0.5) / 0.5
 
     return X_normed, y
 
