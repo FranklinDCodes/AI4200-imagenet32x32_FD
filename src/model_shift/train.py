@@ -153,11 +153,12 @@ def prepare(X, y):
     X, y = shift_augment(
         torch.as_tensor(X).float(),
         y,
-        5,
+        3,
         5,
         5
     )
 
+    print(f"Post augmentation dataset shape: {X.shape}")
 
     X_normed = (X / 255.0 - 0.5) / 0.5
 
