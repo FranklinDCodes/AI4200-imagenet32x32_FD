@@ -66,7 +66,7 @@
 **Result:** Acc: 0.9777. I wonder if I made too big of shifts to be that useful, or even if I may be clipping out the number at times.
 
 
-### model_shift V2 — MNIST — 2026-10-28
+### model_shift V2 (short) — MNIST — 2026-10-28
 
 **Change:** Trained for 10 epochs.
 
@@ -77,7 +77,7 @@
 **Result:** Acc: 0.9485
 
 
-### model_shift V3 — MNIST — 2026-10-28
+### model_shift V3 (lighter shift) — MNIST — 2026-10-28
 
 **Change:** Shift max size 2.
 
@@ -88,7 +88,7 @@
 **Result:** Acc: 0.9672. Hooray! Beat the baseline and the 5-shifted version.
 
 
-### model_shift V4 — MNIST — 2026-10-28
+### model_shift V4 (AdamW) — MNIST — 2026-10-28
 
 **Change:** V3 but using AdamW and lr=0.003.
 
@@ -96,18 +96,39 @@
 
 **Expected:** I think that this will beat the V3 accuracy of 0.9672. It possibly wont because it will converge slower, but I think it would be better in time.
 
-**Result:** Acc: 
+**Result:** Acc: 0.9750. Yay! it beat it. If the dirty loss does better too, I'll combine them.
 
 
-### model_shift V5 — MNIST — 2026-10-28
+### model_shift V5 (dirty loss) — MNIST — 2026-10-28
 
-**Change:** V3 but I am using a dirty cheater loss function. Basically the loss function is weighted more heavily towards classes that are more represented using the following formula:
+**Change:** V3 but I am using a dirty cheater loss function. Basically the loss function is weighted more heavily towards classes that are more represented in the training data using the following formula:
 
             weights = 1 + z / 100 where z = (class_counts - class_counts.mean()) / class_counts.std()
 
-**Why:** I think AdamW is better than SGD generally and ussually I've heard LR from [0.003, 0.0001] is good for Adam.
+**Why:** Trying to game the system basically.
 
-**Expected:** I think that this will beat the V3 accuracy of 0.9672. It possibly wont because it will converge slower, but I think it would be better in time.
+**Expected:** I sort of hope that it will beat the V3 acc of 0.9672 but I think it's unlikely.
+
+**Result:** Acc: 0.9661. Ok I am silly because I now realize that MNIST is perfectly balanced. I though maybe it was slightly unbalanced and was assuming that the train and test data would represent that slight unbalance in similar ways but I was poorly mistaken.
+
+
+### model_shift V6 (reverse dirty loss) — MNIST — 2026-10-28
+
+**Change:** Just like V3 or V5 but class weights as follows: weights = 1 - (class_counts - class_counts.mean()) / class_counts.mean(). This formula scales counts according to their distance from the mean.
+
+**Why:** After I realized that MNIST is perfectly balanced, I realized I should be trying to rectify inbalances in the training data not exacerbate them.
+
+**Expected:** Unless the weights are too strong, I thing they may show some small improvement over the 0.9672 acc for the shifted model with SGD. If it works better I will combine it with the AdamW version.
+
+**Result:** Acc: 0.9696. This is a slight improvement
+
+
+### model_shift V7 (AdamW, balanced, long) — MNIST — 2026-10-28
+
+**Change:** Combining all the best models. AdamW with the lower lr (V4), class balance (V6), and 30 epochs (V1).
+
+**Why:** I think these will all be helpful in different ways and together I expect this to be the best I have for MNIST.
+
+**Expected:** I think this will beat both my first shifted model acc of .9777 and the baseline at 30 epochs of .9802
 
 **Result:** Acc: 
-
