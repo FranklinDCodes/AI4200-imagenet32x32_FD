@@ -74,6 +74,17 @@
 
 **Expected:** I think it will be less than the V1 acc of 0.9777.
 
+**Result:** Acc: 0.9485
+
+
+### model_shift V3 — MNIST — 2026-10-28
+
+**Change:** Shift max size 2.
+
+**Why:** I think the shift was too much and I want it to not clip the numbers.
+
+**Expected:** I think that it will beat certainly the V2 accuracy, and hopefully it will beat the 10 epoch baseline model accuracy of 0.9506.
+
 **Result:** Acc: 
 
 

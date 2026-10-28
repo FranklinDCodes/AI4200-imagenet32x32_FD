@@ -158,8 +158,8 @@ def prepare(X, y=None):
         torch.as_tensor(X).float(),
         y,
         3,
-        5,
-        5
+        2,
+        2
     )
 
     print(f"Post augmentation dataset shape: {X.shape}")
