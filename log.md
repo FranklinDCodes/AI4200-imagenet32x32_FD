@@ -1,9 +1,10 @@
+
 ### BASELINE — MNIST — 2026-10-27
 
 **Result:** Acc: 0.9506
 
 
-### MODEL_2 — MNIST — 2026-10-27
+### MODEL_2 V1 — MNIST — 2026-10-27
 
 **Change:** Used a weight initialization scheme I came up with that satisfies glorot but shifts the variance more to the matrix rows than columns
 
@@ -14,12 +15,30 @@
 **Result:** Acc: 0.2489. Huh.
 
 
-### MODEL_2 — MNIST — 2026-10-27
+### MODEL_2 V2 — MNIST — 2026-10-27
 
 **Change:** I made the varince difference less extreme to see if that would help. From 0.1 and 2 to 1.0 and 2.
 
 **Why:** Because clearly whatever happened in the last run didn't work, so I wanted to moderate it
 
 **Expected:** I think just better than 24%
+
+**Result:** Acc: went up to 90.59%. Seems like this weight init scheme is hurting if anything. I want to try one more time with more epochs to see if it can get more out of the model. To be fair though, I want to compare it to a baseline trained twice as long to see how it helps.
+
+
+### MODEL_2 V3 — MNIST — 2026-10-28
+
+**Change:** Same as V2 but training thrice as long
+
+**Why:** Becuase I still suspect this weight init scheme could help reach a better accuracy, but I would be surprised if it would take longer to get there.
+
+**Expected:** I think it will beat the .9059 from V2, but I don't know by how much. I would be pleasantly surprised if it beat either baseline.
+
+**Result:** Acc: 
+
+
+### BASELINE V2 — MNIST — 2026-10-28
+
+**Change:** Baseline but with 30 epochs
 
 **Result:** Acc: 
