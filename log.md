@@ -13,7 +13,12 @@
 
 ### BASELINE — cifar10 — 2026-10-28
 
-**Result:** Acc: 0.9802
+**Result:** Acc: 48.61
+
+
+### BASELINE — imagenet32 — 2026-10-28
+
+**Result:** Acc: 0.0677
 
 
 
@@ -50,13 +55,25 @@
 **Result:** Acc: 0.9597. Not bad at all. Beats the original baseline, but doesn't beat just training the baseline longer for the same amount of time. This will lead me to give up on this weight init scheme I think.
 
 
-
 ### model_shift V1 — MNIST — 2026-10-28
 
-**Change:** Trained for 30 epochs (seemed to work well before) and using a shift augmentation. This one makes 5 copies of each instance with each row and col randomly shifted from -5 to +5 rows or columns by wrapping around.
+**Change:** Trained for 30 epochs (seemed to work well before) and using a shift augmentation. This one makes 3 new copies of each instance with each row and col randomly shifted from -5 to +5 rows or columns by wrapping around.
 
 **Why:** Working on learning spatial invariance.
 
 **Expected:** I think it will beat the the 30 epoch baseline of 0.9802.
 
-**Result:** Acc: 0.9597. 
+**Result:** Acc: 0.9777. I wonder if I made too big of shifts to be that useful, or even if I may be clipping out the number at times.
+
+
+### model_shift V2 — MNIST — 2026-10-28
+
+**Change:** Trained for 10 epochs.
+
+**Why:** That took too long I need to make faster comparisons.
+
+**Expected:** I think it will be less than the V1 acc of 0.9777.
+
+**Result:** Acc: 
+
+

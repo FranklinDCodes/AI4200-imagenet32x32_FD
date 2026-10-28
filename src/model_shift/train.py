@@ -9,7 +9,7 @@ from .model import TASKS, ResidualMLP
 # plain SGD, constant learning rate, no dropout, no schedule, no augmentation.
 LEARNING_RATE = 0.05
 BATCH_SIZE = 256
-EPOCHS = {"mnist": 30, "cifar10": 30, "imagenet32": 10}
+EPOCHS = {"mnist": 10, "cifar10": 30, "imagenet32": 10}
 
 
 
@@ -190,8 +190,13 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     dataset = TensorDataset(*prepare(X_train, torch.as_tensor(y_train).long()))
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
+    # create weights based on downscaled class count z scores
+    # t_counts = torch.unique(y_train, return_counts=True)[1]
+    # t_count_z = (t_counts - t_counts.mean()) / t_counts.std()
+    # t_class_weights = 1 + t_count_z / 100
+
     # 3. Choose the loss and the optimizer.
-    loss_fn = nn.CrossEntropyLoss()           # expects raw logits
+    loss_fn = nn.CrossEntropyLoss()           # expects raw logits # weight=t_class_weights
     optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE)
 
     # 4. The training loop.
