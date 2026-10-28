@@ -9,3 +9,6 @@ time,package_url,import_name,task,accuracy,train_minutes,seed
 2026-10-27 13:11,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,model_2,mnist,0.2489,0.7,0
 2026-10-28 08:36,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,model_2,mnist,0.9059,0.7,0
 2026-10-28 08:36,model_2,model_2,mnist,0.9059,0.7,0
+2026-10-28 08:50,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,residual_mlp_baseline,mnist,0.9802,2.0,0
+2026-10-28 09:03,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,model_2,mnist,0.9597,2.0,0
+2026-10-28 09:04,residual_mlp_baseline,model_2,mnist,0.9802,2.0,0
