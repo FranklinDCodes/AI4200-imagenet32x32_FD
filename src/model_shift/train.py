@@ -7,9 +7,9 @@ from .model import TASKS, ResidualMLP
 
 # Baseline settings. Deliberately plain so they are easy to beat:
 # plain SGD, constant learning rate, no dropout, no schedule, no augmentation.
-LEARNING_RATE = 0.05 # 0.003
+LEARNING_RATE = 0.003
 BATCH_SIZE = 256
-EPOCHS = {"mnist": 10, "cifar10": 30, "imagenet32": 10}
+EPOCHS = {"mnist": 30, "cifar10": 30, "imagenet32": 10}
 
 
 
@@ -191,13 +191,14 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
 
     # create weights based on downscaled class count z scores
-    # t_counts = torch.unique(y_train, return_counts=True)[1]
-    # t_count_z = (t_counts - t_counts.mean()) / t_counts.std()
-    # t_class_weights = 1 + t_count_z / 100
+    t_counts = torch.unique(torch.as_tensor(y_train).long(), return_counts=True)[1]
+    t_class_weights = 1 - (t_counts - t_counts.float().mean()) / t_counts.float().mean()
+    print(f"Class counts: {t_counts.detach().cpu().numpy().tolist()}")
+    print(f"Class weights: {t_class_weights.detach().cpu().numpy().tolist()}")
 
     # 3. Choose the loss and the optimizer.
-    loss_fn = nn.CrossEntropyLoss()           # expects raw logits # weight=t_class_weights
-    optimizer = torch.optim.SGD(model.parameters(), lr=LEARNING_RATE) # AdamW
+    loss_fn = nn.CrossEntropyLoss(weight=t_class_weights.to(device))           # expects raw logits # weight=t_class_weights
+    optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
     # 4. The training loop.
     model.train()
@@ -227,3 +228,4 @@ def predict(model, X):
     # Predict in chunks so a large test set does not run out of GPU memory.
     chunks = [model.predict(X[i:i + 1024].to(device)).cpu() for i in range(0, len(X), 1024)]
     return torch.cat(chunks)
+
