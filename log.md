@@ -34,11 +34,11 @@
 
 **Expected:** I think it will beat the .9059 from V2, but I don't know by how much. I would be pleasantly surprised if it beat either baseline.
 
-**Result:** Acc: 
+**Result:** Acc: 0.9597. Not bad at all. Beats the original baseline, but doesn't beat just training the baseline longer for the same amount of time. This will lead me to give up on this weight init scheme I think.
 
 
 ### BASELINE V2 — MNIST — 2026-10-28
 
 **Change:** Baseline but with 30 epochs
 
-**Result:** Acc: 
+**Result:** Acc: 0.9802

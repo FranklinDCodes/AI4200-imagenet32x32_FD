@@ -1,6 +1,7 @@
 import torch
+import numpy as np
 import torch.nn as nn
-
+from math import sqrt
 
 # Each task differs only in its input size and its number of classes.
 # The same model class is used for all three.
@@ -58,8 +59,45 @@ class ResidualMLP(nn.Module):
         # Xavier (Glorot) initialization for every linear layer, zero biases.
         for layer in self.modules():
             if isinstance(layer, nn.Linear):
-                nn.init.xavier_normal_(layer.weight)
-                nn.init.zeros_(layer.bias)
+                self._init_linear(layer)
+
+        lins = [layer for layer in self.modules() if isinstance(layer, nn.Linear)]
+        np.savetxt("sample_weights.txt", lins[0].weight.detach().cpu().numpy())
+
+    # initializes all the weight layers
+    def _init_linear(self, layer: nn.Linear):
+
+        fan_in, fan_out = layer.in_features, layer.out_features
+        W = self._InterNVG(fan_in, fan_out)
+
+        with torch.no_grad():
+            layer.weight.copy_(W.T) # nn.Linear stores (out, in), so transpose
+            if layer.bias is not None:
+                layer.bias.zero_()
+
+    # generates a matrix with increased Inter-neuron variance with Glorot (InterNVG)
+    def _InterNVG(
+            self,
+            fan_in: int, 
+       	    fan_out: int,
+       	    starting_feature_var: float = 2.0,
+            starting_neuron_var: float = 1.0
+        ) -> torch.Tensor:
+
+        # create sample row, shape (FAN_OUT,)
+        sample_feat_vec = torch.randn(fan_out) * sqrt(starting_feature_var)
+
+        # generate the full weight matrix in one shot, shape (FAN_IN, FAN_OUT)
+        # each column j is noise + sample_feat_vec[j] (broadcast across rows)
+        weight_mat_raw = torch.randn(fan_in, fan_out) * starting_neuron_var + sample_feat_vec
+        glorot_var = 2 / (fan_in + fan_out)
+
+        # bring back to desired distribution
+        weight_mat = torch.sqrt(
+        glorot_var / torch.var(weight_mat_raw, unbiased=False)
+        ) * (weight_mat_raw - weight_mat_raw.mean())
+
+        return weight_mat
 
     def forward(self, x):
         """Training forward pass. Returns raw logits (no softmax).
