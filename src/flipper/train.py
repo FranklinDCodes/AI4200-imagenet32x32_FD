@@ -103,9 +103,9 @@ def prepare(X, y=None):
     if y is None:
         return X_normed
 
-    X_normed, y = augment_with_flips(X_normed, y)
+    # X_normed, y = augment_with_flips(X_normed, y)
     # X_normed, y = augment_with_fade(X_normed, y)
-    # X_normed, y = augment_with_color_perm(X_normed, y, 2)
+    X_normed, y = augment_with_color_perm(X_normed, y, 2)
 
     return X_normed, y
 

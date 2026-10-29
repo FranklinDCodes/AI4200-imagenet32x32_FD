@@ -31,3 +31,17 @@ time,package_url,import_name,task,accuracy,train_minutes,seed
 2026-10-28 20:29,flipper,flipper,cifar10,0.5526,2.4,0
 2026-10-28 20:37,flipper,flipper,cifar10,0.5450,2.4,0
 2026-10-28 20:58,flipper,flipper,cifar10,0.5416,5.1,0
+2026-10-28 21:16,flipper,flipper,cifar10,0.5000,8.4,0
+2026-10-28 21:28,flipper,flipper,cifar10,0.5377,8.3,0
+2026-10-28 21:32,flipper,flipper,cifar10,0.5338,9.6,0
+2026-10-28 21:34,flipper,flipper,cifar10,0.5494,1.6,0
+2026-10-28 21:40,flipper,flipper,cifar10,0.5451,3.0,0
+2026-10-28 21:58,residual_mlp_baseline,residual_mlp_baseline,imagenet32,0.0512,6.9,0
+2026-10-28 21:59,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,flipper,cifar10,0.5466,4.4,0
+2026-10-28 22:12,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,flipper,cifar10,0.5526,3.0,0
+2026-10-28 22:12,no_aug,no_aug,imagenet32,0.0927,10.4,0
+2026-10-28 22:19,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,flipper,cifar10,0.5526,3.8,0
+2026-10-28 22:25,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,flipper,cifar10,0.5425,2.4,0
+2026-10-28 22:47,no_aug,no_aug,imagenet32,0.0939,13.0,0
+2026-10-28 22:56,flipper,flipper,imagenet32,0.0920,30.7,0
+2026-10-28 23:15,flipper,flipper,imagenet32,0.0813,43.6,0
