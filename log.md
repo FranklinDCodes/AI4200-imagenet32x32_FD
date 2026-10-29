@@ -31,7 +31,7 @@
 
 ### MODEL_2 V1 — MNIST — 2026-10-27
 
-**Change:** Used a weight initialization scheme I came up with that satisfies glorot but shifts the variance more to the matrix rows than columns
+**Change:** Used a weight initialization scheme I came up with that satisfies Glorot but shifts the variance more to the matrix rows than columns
 
 **Why:** Because I hope that this helps keep the neuron tasks from overlapping too much, and maybe they can learn unique tasks quicker
 
@@ -42,7 +42,7 @@
 
 ### MODEL_2 V2 — MNIST — 2026-10-27
 
-**Change:** I made the varince difference less extreme to see if that would help. From 0.1 and 2 to 1.0 and 2.
+**Change:** I made the variance difference less extreme to see if that would help. From 0.1 and 2 to 1.0 and 2.
 
 **Why:** Because clearly whatever happened in the last run didn't work, so I wanted to moderate it
 
@@ -99,7 +99,7 @@
 
 **Change:** V3 but using AdamW and lr=0.003.
 
-**Why:** I think AdamW is better than SGD generally and ussually I've heard LR from [0.003, 0.0001] is good for Adam.
+**Why:** I think AdamW is better than SGD generally and usually I've heard LR from [0.003, 0.0001] is good for Adam.
 
 **Expected:** I think that this will beat the V3 accuracy of 0.9672. It possibly wont because it will converge slower, but I think it would be better in time.
 
@@ -123,7 +123,7 @@
 
 **Change:** Just like V3 or V5 but class weights as follows: weights = 1 - (class_counts - class_counts.mean()) / class_counts.mean(). This formula scales counts according to their distance from the mean.
 
-**Why:** After I realized that MNIST is perfectly balanced, I realized I should be trying to rectify inbalances in the training data not exacerbate them.
+**Why:** After I realized that MNIST is perfectly balanced, I realized I should be trying to rectify imbalances in the training data not exacerbate them.
 
 **Expected:** Unless the weights are too strong, I thing they may show some small improvement over the 0.9672 acc for the shifted model with SGD. If it works better I will combine it with the AdamW version.
 
@@ -153,7 +153,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Why:** Because it didn't help either of the times I tried it
 
-**Expected:** I would be very surprised if the accuracy doesn't surpas that of model_shift V7: 
+**Expected:** I would be very surprised if the accuracy doesn't surpass that of model_shift V7: 
 
 **Result:** Acc: 0.9828. That's actually wild. My weight init scheme squeaked out a victory against pure Glorot. Shout out
 
@@ -169,7 +169,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Result:** Acc: 0.4965. Nice
 
 
-### no_aug V2 — cifar — 2026-10-28
+### no_aug V2 (SwiGLU) — cifar — 2026-10-28
 
 **Change:** SwiGLU
 
@@ -177,5 +177,38 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** I would expect maybe slight improvement but I wouldn't be surprised with small change in either direction.
 
+**Result:** Acc: 0.5447. That was so much more improvement than I expected to see. Very cool.
+
+
+### model_shift V8 (SwiGLU) — MNIST — 2026-10-28
+
+**Change:** I had to go back to MNIST to try SwiGLU after I saw how much it improved cifar10
+
+**Why:** It worked for cifar10
+
+**Expected:** Maybe a slight increase over my best model acc (model_shift V7) of 0.9833
+
 **Result:** Acc: 
+
+
+### no_aug V3 (wider blocks) — cifar — 2026-10-28
+
+**Change:** Like V2 with SwiGLU but increased hidden state.
+
+**Why:** I want to see if increased capacity in the width dimension helps.
+
+**Expected:** I would expect maybe slight improvement but again, I wouldn't be surprised with small change in either direction.
+
+**Result:** Acc: 0.5471. Very negligible increase. 
+
+
+### flipper — cifar — 2026-10-28
+
+**Change:** Made to be exactly like no_aug V2 (the miniscule gains of V3 I figured weren't worth the computation) but there are 3 copies of each original image: original, flipped horizontally, flipped vertically
+
+**Why:** 
+
+**Expected:** I would expect maybe slight improvement but again, I wouldn't be surprised with small change in either direction.
+
+**Result:** Acc: 0.5471. Very negligible increase. 
 
