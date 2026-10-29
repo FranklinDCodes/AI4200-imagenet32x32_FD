@@ -45,3 +45,11 @@ time,package_url,import_name,task,accuracy,train_minutes,seed
 2026-10-28 22:47,no_aug,no_aug,imagenet32,0.0939,13.0,0
 2026-10-28 22:56,flipper,flipper,imagenet32,0.0920,30.7,0
 2026-10-28 23:15,flipper,flipper,imagenet32,0.0813,43.6,0
+2026-10-28 23:29,no_aug,no_aug,imagenet32,0.0972,7.3,0
+2026-10-28 23:39,no_aug,no_aug,imagenet32,0.0986,4.3,0
+2026-10-28 23:40,no_aug,no_aug,imagenet32,0.0928,6.0,0
+2026-10-28 23:47,no_aug,no_aug,imagenet32,0.0993,2.7,0
+2026-10-28 23:52,no_aug,no_aug,imagenet32,0.0948,2.2,0
+2026-10-29 00:13,no_aug,no_aug,imagenet32,0.0824,17.0,0
+2026-10-29 00:25,no_aug,no_aug,imagenet32,0.0973,8.7,0
+2026-10-29 00:48,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,no_aug,imagenet32,0.0939,13.3,0
