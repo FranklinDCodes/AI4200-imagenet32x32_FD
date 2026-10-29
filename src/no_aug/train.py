@@ -31,6 +31,17 @@ def prepare(X):
 # Change anything inside them, but keep their names and arguments.
 # ---------------------------------------------------------------------------
 
+def getActivationVariance(model, input):
+
+    yhat, stream = model(input, True)
+
+    vars = list()
+    for h in stream:
+
+        vars.append(h.std(axis=1).mean().item())
+
+    return vars
+
 def train(task, X_train, y_train, seed=0, device="cuda"):
     """Build a new model and train it from scratch. Returns the trained model."""
     torch.manual_seed(seed)                   # makes the run reproducible
@@ -59,6 +70,15 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     # 4. The training loop.
     model.train()
     for epoch in range(EPOCHS[task]):
+
+
+        # grab variance
+        # if start or midpoint
+        if epoch == 0 or epoch == (EPOCHS[task] + 1) // 2:
+
+            
+
+
         total_loss = 0.0
         for X_batch, y_batch in loader:
             X_batch, y_batch = X_batch.to(device), y_batch.to(device)

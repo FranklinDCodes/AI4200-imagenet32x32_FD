@@ -102,16 +102,31 @@ class ResidualMLP(nn.Module):
         lins = [layer for layer in self.modules() if isinstance(layer, nn.Linear)]
         np.savetxt("sample_weights.txt", lins[0].weight.detach().cpu().numpy())
 
-    def forward(self, x):
+    def forward(self, x, returnHiddenStream=False):
         """Training forward pass. Returns raw logits (no softmax).
 
         nn.CrossEntropyLoss applies the softmax itself, so training uses logits.
         """
+        stream = list()
         x = x.flatten(start_dim=1)            # (N, C, H, W) -> (N, C*H*W)
         x = self.input_layer(x)
+
+        if returnHiddenStream:
+            stream.append(x)
+
         for block in self.blocks:
             x = block(x)
+
+            if returnHiddenStream:
+                stream.append(x)
+
         x = self.head_fc2(torch.tanh(self.head_fc1(self.head_norm(x))))
+
+        if returnHiddenStream:
+            stream.append(x)
+
+        if returnHiddenStream:
+            return x, stream
         return x
 
     def predict(self, x):
