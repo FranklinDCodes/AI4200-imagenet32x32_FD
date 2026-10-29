@@ -73,3 +73,10 @@ Since `torch.cat` works along dim 0, the labels can have any trailing shape, suc
 This assumes the label doesn't change under a flip, as with classification. If your labels are spatial, like segmentation masks or bounding boxes, they'd need to be flipped the same way as the images.
 
 **This code provided was used**
+
+
+
+### #3 - Claude Sonnet 5.5 Extra - color perm augmentation
+
+**Me:**
+Hey Claude. Can you write a python torch function that takes in a tensor of shape (B, C, H, W) and creates 2 new versions of each instance: one flipped vertically, and one flipped horizontally. By flipped I mean visually (e.g. for vertical, this means reversing all the rows). I want it to return the original dataset concatenated with all the new instances and a label tensor that is based on an input label tensor but propagated for all the new flipped images as well. Thanks!
