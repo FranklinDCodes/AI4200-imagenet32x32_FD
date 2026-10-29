@@ -364,13 +364,77 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### no_aug V6 (big batch) — imagenet32 — 2026-10-28
 
-**Change:** Larger batches
+**Change:** 512 batches
 
 **Why:** This dataset has so many classes I want to try and make descent less stochastic by hopefully having more uniform, larger batches
 
 **Expected:** It could improve performance a percent or two or it could hurt because it slows training down, and more training would be needed to know how helpful it is for sure.
 
-**Result:** Acc: 
+**Result:** Acc: 0.0972. Bigger batches helped
 
 
+### no_aug V7 (4 epochs) — imagenet32 — 2026-10-28
+
+**Change:** 512 batches, 4 epochs
+
+**Why:** Random thought just want to make sure we're not overfitting
+
+**Expected:** Likely it'll be a little worse but I want to be sure
+
+**Result:** Acc: 0.0928. Yeah I guess it was not, in fact, overfitting.
+
+
+### no_aug V8 (supa big batch) — imagenet32 — 2026-10-28
+
+**Change:** 1024 batches
+
+**Why:** Increasing batch size helped before, it may again
+
+**Expected:** This may increase a bit more accuracy, or it may now slow down training too much
+
+**Result:** Acc: 0.0986. The bigger the better i guess
+
+
+### no_aug V9 (zAnY big batches) — imagenet32 — 2026-10-28
+
+**Change:** 2048 batches
+
+**Why:** Increasing batch size helped before, it may again
+
+**Expected:** This may increase a bit more accuracy a tiny bit
+
+**Result:** Acc: 0.0993
+
+
+### no_aug V10 (zAnierrr big batches) — imagenet32 — 2026-10-28
+
+**Change:** 4096 batches
+
+**Why:** Increasing batch size helped before, it may again
+
+**Expected:** This may increase a bit more accuracy a tiny bit more, and it definitely speeds up training
+
+**Result:** Acc: 0.0948. hit the limit of batch sizes i guess
+
+
+### no_aug V11 (long training) — imagenet32 — 2026-10-28
+
+**Change:** 1024 batches, 20 epochs of training
+
+**Why:** Seems like I can get more out this model, with the batches this big I am training less than ever
+
+**Expected:** I'm guessing this will get me in the 0.1-0.12 range
+
+**Result:** Acc: 0.0824
+
+
+### no_aug V11 (med training) — imagenet32 — 2026-10-28
+
+**Change:** 1024 batches, 10 epochs of training
+
+**Why:** 20 batches seemed to overfit, but I'm not convinced 5 is enough
+
+**Expected:** I'm guessing this will get me in the 0.1-0.12 range for real
+
+**Result:** Acc: 0.0973
 
