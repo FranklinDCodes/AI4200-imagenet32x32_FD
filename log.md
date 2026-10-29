@@ -210,5 +210,28 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** I would expect either a few percent increase or a few percent decrease from no_aug V2. I could see this not helping if all images for a certain object are usually oriented a certain way in the test set. I would be most surprised if it had little to no effect.
 
+**Result:** Acc: 0.5526. That is a noticeable improvement.
+
+
+### flipper V2 (lower lr) — cifar — 2026-10-28
+
+**Change:** I want to try a lower learning rate of 0.001.
+
+**Why:** Given the increase in data I want it to learn less from individual instances to hopefully converge more smoothly.
+
+**Expected:** I would expect either a couple percent increase on .5526, or if the lower lr is too slow I would expect a small decrease that could I imaging go away with more train time (like if it learns too slow).
+
+**Result:** Acc: 0.5450. Much closer than I would've imagined. If I start training for 30 epochs, may need to try this again.
+
+
+### flipper V3 (flipper fader) — cifar — 2026-10-28
+
+**Change:** Just like og flipper but I'm copying item in the dataset 1 more time, this time with a 75% fade in all channels.
+
+**Why:** I want to see if I can give the model some color invariance.
+
+**Expected:** Genuinely no clue. Could help, could confuse the model, or at this point, since there is a lot of data, it could just have a very little effect.
+
 **Result:** Acc: 
+
 
