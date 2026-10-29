@@ -39,7 +39,7 @@ Per-image shifts can't be done with one `torch.roll` per copy, so each copy is b
 
 The output order is unchanged: the original dataset first, then copy 1 through copy `k`, with labels repeated to match. The function doesn't return the shifts it used. If you want them, for logging or for using them as extra targets, say so and I'll add an option for it.
 
-**Resulting code was used**
+**The code files provided were used**
 
 
 
@@ -79,4 +79,25 @@ This assumes the label doesn't change under a flip, as with classification. If y
 ### #3 - Claude Sonnet 5.5 Extra - color perm augmentation
 
 **Me:**
-Hey Claude. Can you write a python torch function that takes in a tensor of shape (B, C, H, W) and creates 2 new versions of each instance: one flipped vertically, and one flipped horizontally. By flipped I mean visually (e.g. for vertical, this means reversing all the rows). I want it to return the original dataset concatenated with all the new instances and a label tensor that is based on an input label tensor but propagated for all the new flipped images as well. Thanks!
+Hey Claude. Can you write a python torch function that takes in a tensor of shape (B, C, H, W) where C=3 and creates k (k<=5) new versions of each instance: each with a different, random permutation of the channels? So for example, for k=2 I would want each instance to have 2 new random, distinct instances, each with a different permuations of the RGB channels. They may be RBG and GBR, e.g. I want it to return the original dataset concatenated with all the new instances and a label tensor that is based on an input label tensor but propagated for all the new flipped images as well. Thanks!
+
+**Claude:**
+I wrote `add_channel_permutations(x, y, k)` in `channel_permute.py`. I couldn't run it because this sandbox has no PyTorch, so it's untested. I did check the gather indexing by hand, and the file has a small `__main__` sanity test you can run.
+
+How it works
+- Three channels have 3! = 6 orderings. I exclude the identity so no new image duplicates the original, which leaves 5 permutations. That's why k is capped at 5.
+- For each image, k distinct permutations are drawn independently of the other images. This is done by sampling random scores of shape (B, 5), argsorting them, and taking the first k, so there are no repeats within an image and no Python loops.
+- The new channels are built with a single `gather` along the channel dimension. Output channel `c` is `x[:, perm[c]]`, so a permutation of (2, 0, 1) turns RGB into BRG.
+- The output is the originals followed by the new images, grouped by source. That is image 0's k variants, then image 1's, and so on. The labels use `y.repeat_interleave(k, dim=0)`, so they line up automatically. This works for class-id labels of shape `(B,)` and for one-hot or other `(B, ...)` labels.
+
+Usage
+```python
+x_out, y_out = add_channel_permutations(x, y, k=2)
+# x_out: (B + 2B, 3, H, W), y_out: (B + 2B, ...)
+```
+
+It also takes an optional `generator` argument for reproducibility. The generator needs to be on the same device as `x`. Passing `k=0` returns the inputs unchanged.
+
+**The code files provided were used**
+
+

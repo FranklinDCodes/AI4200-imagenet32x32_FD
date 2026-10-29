@@ -232,15 +232,15 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** Genuinely no clue. Could help, could confuse the model, or at this point, since there is a lot of data, it could just have a very little effect.
 
-**Result:** Acc: 
+**Result:** Acc: 0.5416. Color fading seemed to hurt.
 
 
 ### flipper V4 (flipper colorizer) — cifar — 2026-10-28
 
-**Change:** Just like og flipper but I'm copying items in the dataset 3 more times, each time with a different possible permutation of the color channels.
+**Change:** Just like og flipper but I'm copying items in the dataset 2 more times, each time with a different random permutation of the color channels.
 
 **Why:** I want to see if I can give the model some color invariance.
 
-**Expected:** I would think it'll help a little
+**Expected:** I would think it'll help a little.
 
 **Result:** Acc: 
