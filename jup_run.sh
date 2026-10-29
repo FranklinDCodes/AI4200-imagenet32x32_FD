@@ -9,4 +9,4 @@
 
 source ../dl_env/bin/activate
 
-jupyter execute project1_harness.ipynb > "$1.log" 2>&1
+jupyter execute project1_harness.ipynb > "$1.out" 2>&1

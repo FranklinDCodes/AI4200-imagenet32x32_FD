@@ -3,7 +3,7 @@
 # Your GitHub repository, in the form pip installs from. This example is the
 # instructor's baseline: https://github.com/JesseTNRoberts/AI4200-imagenet32x32-baseline-model
 #PACKAGE_URL = "git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git"
-PACKAGE_NAME = "residual_mlp_baseline"
+PACKAGE_NAME = "no_aug"
 
 # The name you import your package by (the folder inside src/).
 IMPORT_NAME = PACKAGE_NAME
