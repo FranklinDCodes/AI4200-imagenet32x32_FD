@@ -3,14 +3,14 @@
 # Your GitHub repository, in the form pip installs from. This example is the
 # instructor's baseline: https://github.com/JesseTNRoberts/AI4200-imagenet32x32-baseline-model
 #PACKAGE_URL = "git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git"
-PACKAGE_NAME = "model_shift"
+PACKAGE_NAME = "residual_mlp_baseline"
 
 # The name you import your package by (the folder inside src/).
 IMPORT_NAME = PACKAGE_NAME
 
 # Your nickname on the unofficial leaderboard (not your real name).
 # Set it to "" to keep your results off the leaderboard.
-LEADERBOARD_ALIAS = "Frankie_secret_init"
+LEADERBOARD_ALIAS = ""
 
 # Your section: "4000" or "5000".
 SECTION = "4000"
@@ -21,7 +21,7 @@ import os
 DATA_DIR = "data"
 
 # Which tasks to run. Remove some while testing to save time.
-TASKS_TO_RUN = ["mnist"] #["mnist", "cifar10", "imagenet32"]
+TASKS_TO_RUN = ["cifar10"] #["mnist", "cifar10", "imagenet32"]
 
 SEED = 0
 

@@ -16,6 +16,13 @@
 **Result:** Acc: 48.61
 
 
+### BASELINE V2 — cifar10 — 2026-10-28
+
+**Change:** Baseline but with 10 epochs
+
+**Result:** Acc: 48.61
+
+
 ### BASELINE — imagenet32 — 2026-10-28
 
 **Result:** Acc: 0.0677
@@ -131,4 +138,34 @@
 
 **Expected:** I think this will beat both my first shifted model acc of .9777 and the baseline at 30 epochs of .9802
 
+**Result:** Acc: 0.9833
+
+
+### IMPORTANT NOTE
+
+I just realized that all the shifted models up until this point have been using my goofy weight init scheme like model_2 used.
+This is unfortunate because it pretty much showed to lower accuracy in the scenarios tested.
+
+
+### model_shift_reg_init (normal init) — MNIST — 2026-10-28
+
+**Change:** Like model_shift V7 **WITHOUT** the goofy weight init scheme I apparently have been using this whole time *facepalm.
+
+**Why:** Because it didn't help either of the times I tried it
+
+**Expected:** I would be very surprised if the accuracy doesn't surpas that of model_shift V7: 
+
+**Result:** Acc:
+
+
+
+### no_aug — cifar — 2026-10-28
+
+**Change:** this model contains all the features that I found were best for model_shift_reg_init without the shifting augmentation. Basically baseline + AdamW, 0.003 LR, and balanced loss. To save time it's only for 10 epochs.
+
+**Why:** Because I think the wrap-around shifts are too risky for cifar10. All the images are quite close to the edge. All the other features seemed to help
+
+**Expected:** I would expect this to beat the 10 epoch baseline accuracy of 
+
 **Result:** Acc: 
+
