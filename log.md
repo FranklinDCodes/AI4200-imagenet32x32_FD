@@ -28,6 +28,12 @@
 **Result:** Acc: 0.0677
 
 
+### BASELINE V2 — imagenet32 — 2026-10-28
+
+**Change:** Baseline but with 5 epochs
+
+**Result:** Acc: 0.0512
+
 
 ### MODEL_2 V1 — MNIST — 2026-10-27
 
@@ -243,4 +249,128 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** I would think it'll help a little.
 
+**Result:** Acc: 0.500. Very interesting. Color augmentations seemed to be notably hurtful.
+
+
+### flipper V5 (long) — cifar — 2026-10-28
+
+**Change:** Like og flipper but now back to original 30 epoch training length
+
+**Why:** The baseline benefited from the additional training.
+
+**Expected:** I would expect 0.58-0.59 test accuracy.
+
+**Result:** Acc: 0.5377. Very interesting. May be overfitting.
+
+
+### flipper V6 (long, lower lr) — cifar — 2026-10-28
+
+**Change:** Like V5 (long) flipper, but I wanted to try that lower learning rate again with more train time.
+
+**Why:** Because the lower LR performed very similar to the higher one 10 epochs and I wonder if it overtakes it if you give them both more time.
+
+**Expected:** Realistically maybe 1-2% less that V5 but I think it's possible that it's higher, that's why I want to try.
+
+**Result:** Acc: 0.5338. Virtually the same as the long one with the higher lr. Long training is a bad idea clearly.
+
+
+### flipper V7 (short) — cifar — 2026-10-28
+
+**Change:** Like original flipper but 7 epochs of training.
+
+**Why:** Because long flipper (V5) showed a decrease in test accuracy so maybe we are overfit.
+
+**Expected:** Unsure, maybe few percent increase or decrease.
+
+**Result:** Acc: 0.5494. Interesting. Very close to og flipper.
+
+
+### flipper V8 (medium) — cifar — 2026-10-28
+
+**Change:** Like original flipper but 13 epochs of training. I really should've built some validation but it's too late now.
+
+**Why:** Because long flipper (V5) showed a decrease in test accuracy and short flipper (V7) showed a smaller one.
+
+**Expected:** Unsure, maybe few percent increase or decrease.
+
+**Result:** Acc: 0.5451. AND STILL, og flipper is the best.
+
+
+### flipper V9 (wider) — cifar — 2026-10-28
+
+**Change:** Like og flipper but I went ahead and made the blocks twice as wide again. That helped a small amount in no_aug V3.
+
+**Why:** Figured if it added a little accuracy without augmentation it may help with flipping.
+
+**Expected:** A miniscule increase or decrease over original 0.5526.
+
+**Result:** Acc: 0.5466. Dang bro, really nothing beats the original
+
+
+### flipper V10 (narrower) — cifar — 2026-10-28
+
+**Change:** Like og flipper but I went ahead and made the blocks 192 in the hidden state instead of 256.
+
+**Why:** The wider V9 did worse than the original.
+
+**Expected:** A miniscule increase or decrease over original 0.5526.
+
+**Result:** Acc: 0.5425. I guess I really struck gold with og Flipper.
+
+
+### no_aug V4 — imagenet32 — 2026-10-28
+
+**Change:** Like no_aug V2 from cifar, but shorter train time (5 epochs). Should one helpful baseline for imagenet32
+
+**Why:** Because I want an unaugmented baseline.
+
+**Expected:** I would expect maybe a couple percent improvement on the residual_mlp_baseline 5 epoch test acc: .0512.
+
+**Result:** Acc: 0.0927. Good!
+
+
+### no_aug V5 (deep) — imagenet32 — 2026-10-28
+
+**Change:** Like V4, but 10 layers deeper.
+
+**Why:** I want to see if more model capacity will help right now with this dataset.
+
+**Expected:** I would expect maybe a couple percent improvement on V4's 0.927
+
+**Result:** Acc: 0.0939. Miniscule improvement.
+
+
+### flipper — imagenet32 — 2026-10-28
+
+**Change:** Like original flipper used in cifar. Figured it would be a good starting point for imagenet32.
+
+**Why:** Because it worked alright on cifar.
+
+**Expected:** Realistically maybe a couple percent more than the no_aug?
+
+**Result:** Acc: 0.092. It looks like using flip augmentation hurts performance.
+
+
+### flipper V11 (only colorizer) — imagenet32 — 2026-10-28
+
+**Change:** Like flipper V4 except it does not also flip. Augmenting with 2 random permutations of the color channels for each instance.
+
+**Why:** I want to see if I can give the model some color invariance.
+
+**Expected:** I would think it may help a little over the no aug 0.0927.
+
+**Result:** Acc: 0.0813. Definitely hurts performance
+
+
+### no_aug V6 (big batch) — imagenet32 — 2026-10-28
+
+**Change:** Larger batches
+
+**Why:** This dataset has so many classes I want to try and make descent less stochastic by hopefully having more uniform, larger batches
+
+**Expected:** It could improve performance a percent or two or it could hurt because it slows training down, and more training would be needed to know how helpful it is for sure.
+
 **Result:** Acc: 
+
+
+
