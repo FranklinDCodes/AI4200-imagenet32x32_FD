@@ -13,14 +13,14 @@
 
 ### BASELINE — cifar10 — 2026-10-28
 
-**Result:** Acc: 48.61
+**Result:** Acc: 0.4861
 
 
 ### BASELINE V2 — cifar10 — 2026-10-28
 
 **Change:** Baseline but with 10 epochs
 
-**Result:** Acc: 48.61
+**Result:** Acc: 0.4535
 
 
 ### BASELINE — imagenet32 — 2026-10-28
