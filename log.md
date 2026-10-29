@@ -226,12 +226,21 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### flipper V3 (flipper fader) — cifar — 2026-10-28
 
-**Change:** Just like og flipper but I'm copying item in the dataset 1 more time, this time with a 75% fade in all channels.
+**Change:** Just like og flipper but I'm copying items in the dataset 1 more time, this time with a 75% fade in all channels.
 
-**Why:** I want to see if I can give the model some color invariance.
+**Why:** I want to see if I can give the model image-softness invariance.
 
 **Expected:** Genuinely no clue. Could help, could confuse the model, or at this point, since there is a lot of data, it could just have a very little effect.
 
 **Result:** Acc: 
 
 
+### flipper V4 (flipper colorizer) — cifar — 2026-10-28
+
+**Change:** Just like og flipper but I'm copying items in the dataset 3 more times, each time with a different possible permutation of the color channels.
+
+**Why:** I want to see if I can give the model some color invariance.
+
+**Expected:** I would think it'll help a little
+
+**Result:** Acc: 

@@ -39,6 +39,15 @@ def augment_with_fade(images: torch.Tensor, labels: torch.Tensor):
 
 
 
+# def augment_with_color_perm(images: torch.Tensor, labels: torch.Tensor):
+
+#     all_images = torch.cat([images, faded], dim=0)
+#     all_labels = torch.cat([labels, labels], dim=0)
+
+#     return all_images, all_labels
+
+
+
 def prepare(X, y=None):
     """Convert uint8 images (0-255) to floats in roughly [-1, 1]."""
 
