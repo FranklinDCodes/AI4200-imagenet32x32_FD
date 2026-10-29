@@ -9,7 +9,7 @@ from .model import TASKS, ResidualMLP
 # plain SGD, constant learning rate, no dropout, no schedule, no augmentation.
 LEARNING_RATE = 0.05
 BATCH_SIZE = 256
-EPOCHS = {"mnist": 10, "cifar10": 10, "imagenet32": 10}
+EPOCHS = {"mnist": 10, "cifar10": 10, "imagenet32": 5}
 
 
 def prepare(X):
