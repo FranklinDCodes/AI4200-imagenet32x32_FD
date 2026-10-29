@@ -147,9 +147,9 @@ I just realized that all the shifted models up until this point have been using 
 This is unfortunate because it pretty much showed to lower accuracy in the scenarios tested.
 
 
-### model_shift_reg_init (normal init) — MNIST — 2026-10-28
+### model_shift_reg_init — MNIST — 2026-10-28
 
-**Change:** Like model_shift V7 **WITHOUT** the goofy weight init scheme I apparently have been using this whole time *facepalm.
+**Change:** Like model_shift V7 **WITHOUT** the goofy weight init scheme I apparently have been using this whole time *facepalm. Instead straight Glorot
 
 **Why:** Because it didn't help either of the times I tried it
 
@@ -182,13 +182,13 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### model_shift V8 (SwiGLU) — MNIST — 2026-10-28
 
-**Change:** I had to go back to MNIST to try SwiGLU after I saw how much it improved cifar10
+**Change:** I had to go back to MNIST to try SwiGLU after I saw how much it improved cifar10. Exactly like model_shift V7 but SwiGLU blocks
 
 **Why:** It worked for cifar10
 
 **Expected:** Maybe a slight increase over my best model acc (model_shift V7) of 0.9833
 
-**Result:** Acc: 
+**Result:** Acc: 0.9840. Nice!
 
 
 ### no_aug V3 (wider blocks) — cifar — 2026-10-28
@@ -204,11 +204,11 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### flipper — cifar — 2026-10-28
 
-**Change:** Made to be exactly like no_aug V2 (the miniscule gains of V3 I figured weren't worth the computation) but there are 3 copies of each original image: original, flipped horizontally, flipped vertically
+**Change:** Made to be exactly like no_aug V2 (the miniscule gains of V3 I figured weren't worth the computation) but there are 3 copies of each original image: original, flipped horizontally, flipped vertically.
 
-**Why:** 
+**Why:** Flips I hope will help the network learn more the shapes of things, and not the location or angle.
 
-**Expected:** I would expect maybe slight improvement but again, I wouldn't be surprised with small change in either direction.
+**Expected:** I would expect either a few percent increase or a few percent decrease from no_aug V2. I could see this not helping if all images for a certain object are usually oriented a certain way in the test set. I would be most surprised if it had little to no effect.
 
-**Result:** Acc: 0.5471. Very negligible increase. 
+**Result:** Acc: 
 
