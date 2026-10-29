@@ -155,8 +155,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** I would be very surprised if the accuracy doesn't surpas that of model_shift V7: 
 
-**Result:** Acc:
-
+**Result:** Acc: 0.9828. That's actually wild. My weight init scheme squeaked out a victory against pure Glorot. Shout out
 
 
 ### no_aug — cifar — 2026-10-28
@@ -165,7 +164,18 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Why:** Because I think the wrap-around shifts are too risky for cifar10. All the images are quite close to the edge. All the other features seemed to help
 
-**Expected:** I would expect this to beat the 10 epoch baseline accuracy of 
+**Expected:** I would expect this to beat the 10 epoch baseline accuracy of 0.4535
+
+**Result:** Acc: 0.4965. Nice
+
+
+### no_aug V2 — cifar — 2026-10-28
+
+**Change:** SwiGLU
+
+**Why:** Because I want to see what happens
+
+**Expected:** I would expect maybe slight improvement but I wouldn't be surprised with small change in either direction.
 
 **Result:** Acc: 
 

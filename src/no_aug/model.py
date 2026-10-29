@@ -30,6 +30,40 @@ class Block(nn.Module):
         return x + h                          # skip connection: add the input back
 
 
+class SwigBlock(nn.Module):
+    """One residual block:  x + Linear(tanh(Linear(LayerNorm(x))))
+
+    The block expands to `hidden` features, applies tanh, and projects back to
+    `width` features so its output can be added to its input (the skip connection).
+    """
+
+    def __init__(self, width, hidden):
+        super().__init__()
+        self.norm = nn.LayerNorm(width)       # pre-norm: normalize before the layers
+        self.fc1 = nn.Linear(width, hidden)   # expand:  width  -> hidden
+        self.act_proj = nn.Linear(width, hidden)   # expand:  width  -> hidden (activation projection for SwiGLU)
+        self.fc2 = nn.Linear(hidden, width)   # project: hidden -> width
+
+    def forward(self, x):
+
+        x_norm = self.norm(x)
+
+        # non activation route
+        h = self.fc1(x_norm)
+
+        # SwiGLU route
+        p = self.act_proj(x_norm)
+        gate = torch.nn.functional.silu(p)
+
+        # apply SiLU gate
+        activated = h * gate
+
+        # bring size back down
+        block_out = self.fc2(activated)
+        
+        return x + block_out                        # skip connection: add the input back
+    
+
 class ResidualMLP(nn.Module):
     """Baseline residual MLP.
 
@@ -49,7 +83,7 @@ class ResidualMLP(nn.Module):
         self.input_layer = nn.Linear(in_features, width)
 
         # The residual backbone: `depth` identical blocks.
-        self.blocks = nn.ModuleList([Block(width, hidden) for _ in range(depth)])
+        self.blocks = nn.ModuleList([SwigBlock(width, hidden) for _ in range(depth)])
 
         # The head: same layers as a block, but the last layer outputs class scores.
         self.head_norm = nn.LayerNorm(width)
