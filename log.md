@@ -438,3 +438,13 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Result:** Acc: 0.0973
 
+
+### no_aug_2 V12 (dropout) — imagenet32 — 2026-10-28
+
+**Change:** 2048 batches, 10 epochs, dropout
+
+**Why:** It may help generalization with longer training
+
+**Expected:** This may increase a bit more accuracy a tiny bit
+
+**Result:** Acc: 

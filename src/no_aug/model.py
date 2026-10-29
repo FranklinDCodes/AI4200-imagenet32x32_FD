@@ -43,6 +43,7 @@ class SwigBlock(nn.Module):
         self.fc1 = nn.Linear(width, hidden)   # expand:  width  -> hidden
         self.act_proj = nn.Linear(width, hidden)   # expand:  width  -> hidden (activation projection for SwiGLU)
         self.fc2 = nn.Linear(hidden, width)   # project: hidden -> width
+        self.dropout = nn.Dropout(0.3)
 
     def forward(self, x):
 
@@ -57,6 +58,8 @@ class SwigBlock(nn.Module):
 
         # apply SiLU gate
         activated = h * gate
+
+        activated = self.dropout(activated)
 
         # bring size back down
         block_out = self.fc2(activated)
