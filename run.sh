@@ -9,4 +9,4 @@
 
 source ../dl_env/bin/activate
 
-python -u harness_run_script.py > "$1.log" 2>&1
+python -u harness_run_script.py > "$1.out" 2>&1

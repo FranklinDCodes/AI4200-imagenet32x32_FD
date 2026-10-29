@@ -21,3 +21,4 @@ time,package_url,import_name,task,accuracy,train_minutes,seed
 2026-10-28 18:08,model_shift,model_shift,mnist,0.9750,4.4,0
 2026-10-28 18:22,model_shift,model_shift,mnist,0.9661,3.6,0
 2026-10-28 18:45,model_shift,model_shift,mnist,0.9696,3.7,0
+2026-10-28 19:19,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,model_shift,mnist,0.9833,13.1,0
