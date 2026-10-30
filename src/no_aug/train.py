@@ -49,7 +49,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     # 1. Build the model for this task. Only input size and class count differ.
     model = ResidualMLP(**TASKS[task]).to(device)
 
-    eval_set = X_train[:1024]
+    #eval_set = X_train[:1024]
     X_train = X_train[1024:]
     y_train = y_train[1024:]
 
