@@ -79,7 +79,7 @@ class ResidualMLP(nn.Module):
     differs from its input size (width), so the two cannot be added.
     """
 
-    def __init__(self, in_features, num_classes, width=128, hidden=256, depth=40):
+    def __init__(self, in_features, num_classes, width=128, hidden=256, depth=50):
         super().__init__()
 
         # Project the flattened image down to the backbone width.
@@ -120,7 +120,7 @@ class ResidualMLP(nn.Module):
             if returnHiddenStream:
                 stream.append(x)
 
-        x = self.head_fc2(torch.tanh(self.head_fc1(self.head_norm(x))))
+        x = self.head_fc2(torch.nn.functional.silu(self.head_fc1(self.head_norm(x))))
 
         if returnHiddenStream:
             stream.append(x)
