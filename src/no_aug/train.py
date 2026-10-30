@@ -142,7 +142,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     # 1. Build the model for this task. Only input size and class count differ.
     model = ResidualMLP(**TASKS[task]).to(device)
 
-    eval_x = prepare(X_train[:BATCH_SIZE]).to(device)
+    eval_x = prepare(X_train[:BATCH_SIZE//2]).to(device)
     eval_y = torch.as_tensor(y_train[:BATCH_SIZE//2]).long().to(device)
     X_train = X_train[BATCH_SIZE//2:]
     y_train = y_train[BATCH_SIZE//2:]
