@@ -1,5 +1,7 @@
 #! /bin/bash
 
+# runs the harness run script for the cluster
+
 #SBATCH --account=bs-fgdoane42
 #SBATCH --cpus-per-task=4
 #SBATCH --gpus-per-node=1
