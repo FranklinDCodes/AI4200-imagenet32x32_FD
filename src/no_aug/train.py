@@ -143,9 +143,9 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     model = ResidualMLP(**TASKS[task]).to(device)
 
     eval_x = prepare(X_train[:BATCH_SIZE]).to(device)
-    eval_y = torch.as_tensor(y_train[:BATCH_SIZE]).long().to(device)
-    X_train = X_train[BATCH_SIZE:]
-    y_train = y_train[BATCH_SIZE:]
+    eval_y = torch.as_tensor(y_train[:BATCH_SIZE//2]).long().to(device)
+    X_train = X_train[BATCH_SIZE//2:]
+    y_train = y_train[BATCH_SIZE//2:]
 
     # 2. Wrap the data so we can loop over shuffled mini-batches.
     dataset = TensorDataset(prepare(X_train), torch.as_tensor(y_train).long())
