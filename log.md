@@ -459,3 +459,14 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Expected:** This may increase a bit more accuracy (2-3%)
 
 **Result:** Acc: 0.1158
+
+
+### no_aug_2 V14 (deep) — imagenet32 — 2026-10-28
+
+**Change:** Up to 50 blocks (10 additional). Also, I realized the output block still had a Tanh so I made it a SiLU (even though I am using SwiGLU)
+
+**Why:** I think that now that I am using dropout, more model capacity could work
+
+**Expected:** This may increase a bit more accuracy ~1%, but I am really not expecting much at all
+
+**Result:** Acc: 

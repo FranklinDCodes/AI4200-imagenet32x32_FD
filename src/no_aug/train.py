@@ -150,10 +150,10 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     # 1. Build the model for this task. Only input size and class count differ.
     model = ResidualMLP(**TASKS[task]).to(device)
 
-    eval_x = prepare(X_train[:BATCH_SIZE//2]).to(device)
-    eval_y = torch.as_tensor(y_train[:BATCH_SIZE//2]).long().to(device)
-    X_train = X_train[BATCH_SIZE//2:]
-    y_train = y_train[BATCH_SIZE//2:]
+    # eval_x = prepare(X_train[:BATCH_SIZE//2]).to(device)
+    # eval_y = torch.as_tensor(y_train[:BATCH_SIZE//2]).long().to(device)
+    # X_train = X_train[BATCH_SIZE//2:]
+    # y_train = y_train[BATCH_SIZE//2:]
 
     # 2. Wrap the data so we can loop over shuffled mini-batches.
     dataset = TensorDataset(prepare(X_train), torch.as_tensor(y_train).long())
@@ -169,12 +169,12 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     loss_fn = nn.CrossEntropyLoss(weight=t_class_weights.to(device))           # expects raw logits
     optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
-    d_vars = dict() # variances
-    d_bsrs = dict() # branch to stream ratios
-    d_grads = dict() # grad rms
-    d_wur = dict() # weight to update ratios
-    d_vars["init"], d_bsrs["init"] = get_forward_metrics(model, eval_x)
-    d_grads["init"], d_wur["init"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+    # d_vars = dict() # variances
+    # d_bsrs = dict() # branch to stream ratios
+    # d_grads = dict() # grad rms
+    # d_wur = dict() # weight to update ratios
+    # d_vars["init"], d_bsrs["init"] = get_forward_metrics(model, eval_x)
+    # d_grads["init"], d_wur["init"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
 
     # 4. The training loop.
     model.train()
@@ -182,15 +182,15 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
 
         # grab variance
         # if start or midpoint
-        if epoch == (EPOCHS[task] + 1) // 4:
-            d_vars["mid_training"], d_bsrs["1/4"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["1/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
-        elif epoch == (EPOCHS[task] + 1) // 2:
-            d_vars["mid_training"], d_bsrs["1/2"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["1/2"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
-        elif epoch == (EPOCHS[task] + 1) * 3 // 4:
-            d_vars["mid_training"], d_bsrs["3/4"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["3/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+        # if epoch == (EPOCHS[task] + 1) // 4:
+        #     d_vars["mid_training"], d_bsrs["1/4"] = get_forward_metrics(model, eval_x)
+        #     d_grads["mid_training"], d_wur["1/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+        # elif epoch == (EPOCHS[task] + 1) // 2:
+        #     d_vars["mid_training"], d_bsrs["1/2"] = get_forward_metrics(model, eval_x)
+        #     d_grads["mid_training"], d_wur["1/2"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+        # elif epoch == (EPOCHS[task] + 1) * 3 // 4:
+        #     d_vars["mid_training"], d_bsrs["3/4"] = get_forward_metrics(model, eval_x)
+        #     d_grads["mid_training"], d_wur["3/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
 
         total_loss = 0.0
         for X_batch, y_batch in loader:
@@ -207,13 +207,13 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
 
         print(f"epoch {epoch + 1}: train loss {total_loss / len(dataset):.4f}")
 
-    d_vars["final"], d_bsrs["final"] = get_forward_metrics(model, eval_x)
-    d_grads["final"], d_wur["final"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+    # d_vars["final"], d_bsrs["final"] = get_forward_metrics(model, eval_x)
+    # d_grads["final"], d_wur["final"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
 
-    plot_log_series(d_vars, "plts/no_aug_variance.png", "Variance", "variance", "layer")
-    plot_log_series(d_bsrs, "plts/no_aug_branch-stream_ratio.png", "Branch-stream ratio", "ratio", "layer")
-    plot_log_series(d_grads, "plts/no_aug_grads.png", "Gradient RMS", "RMS", "layer")
-    plot_log_series(d_wur, "plts/no_aug_update_ratio.png", "Update-weight ratio", "ratio", "layer")
+    # plot_log_series(d_vars, "plts/no_aug_variance.png", "Variance", "variance", "layer")
+    # plot_log_series(d_bsrs, "plts/no_aug_branch-stream_ratio.png", "Branch-stream ratio", "ratio", "layer")
+    # plot_log_series(d_grads, "plts/no_aug_grads.png", "Gradient RMS", "RMS", "layer")
+    # plot_log_series(d_wur, "plts/no_aug_update_ratio.png", "Update-weight ratio", "ratio", "layer")
 
     return model
 
