@@ -149,7 +149,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
 
     # 2. Wrap the data so we can loop over shuffled mini-batches.
     dataset = TensorDataset(prepare(X_train), torch.as_tensor(y_train).long())
-    loader = DataLoader(dataset, batch_size=BATCH_SIZE, shuffle=True)
+    loader = DataLoader(dataset, batch_size=BATCH_SIZE//2, shuffle=True)
 
     # create weights based on downscaled class count z scores
     t_counts = torch.unique(torch.as_tensor(y_train).long(), return_counts=True)[1]
