@@ -183,14 +183,14 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
         # grab variance
         # if start or midpoint
         if epoch == (EPOCHS[task] + 1) // 4:
-            d_vars["mid_training"], d_bsrs["1/4"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["1/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+            d_vars["1/4"], d_bsrs["1/4"] = get_forward_metrics(model, eval_x)
+            d_grads["1/4"], d_wur["1/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
         elif epoch == (EPOCHS[task] + 1) // 2:
-            d_vars["mid_training"], d_bsrs["1/2"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["1/2"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+            d_vars["1/2"], d_bsrs["1/2"] = get_forward_metrics(model, eval_x)
+            d_grads["1/2"], d_wur["1/2"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
         elif epoch == (EPOCHS[task] + 1) * 3 // 4:
-            d_vars["mid_training"], d_bsrs["3/4"] = get_forward_metrics(model, eval_x)
-            d_grads["mid_training"], d_wur["3/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
+            d_vars["3/4"], d_bsrs["3/4"] = get_forward_metrics(model, eval_x)
+            d_grads["3/4"], d_wur["3/4"] = get_backward_metrics(model, loss_fn, eval_x, eval_y, optimizer)
 
         total_loss = 0.0
         for X_batch, y_batch in loader:

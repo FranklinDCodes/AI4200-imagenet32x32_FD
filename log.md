@@ -486,3 +486,14 @@ As I am about to turn in, I am just now realizing that I may have had the color 
 **Expected:** This may increase a bit more accuracy ~1%, but I am really not expecting much at all
 
 **Result:** Acc: 0.1131. Worse.
+
+
+### no_aug_2 V15 (silu output) — imagenet32 — 2026-10-28
+
+**Change:** Back to 40 blocks, but still SiLU on the last block instead of Tanh
+
+**Why:** I think that this makes sense
+
+**Expected:** This may increase a bit more accuracy ~1%, but mostly I am expecting to be within a 10th of a percent, hopefully better
+
+**Result:** Acc: 0.1105. Worse, and by more than I though

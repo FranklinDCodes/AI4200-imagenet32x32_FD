@@ -120,7 +120,7 @@ class ResidualMLP(nn.Module):
             if returnHiddenStream:
                 stream.append(x)
 
-        x = self.head_fc2(torch.nn.functional.silu(self.head_fc1(self.head_norm(x))))
+        x = self.head_fc2(torch.tanh(self.head_fc1(self.head_norm(x))))
 
         if returnHiddenStream:
             stream.append(x)
