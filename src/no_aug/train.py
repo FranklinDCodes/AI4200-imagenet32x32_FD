@@ -44,7 +44,7 @@ def get_forward_metrics(model, input):
     # get block stream ratios
     BSRs = list()
     block_input = stream[0]
-    for h in stream[1:]:
+    for h in stream[1:-1]:
         block_output_add = h - block_input
         ratio = block_output_add / block_input
         BSRs.append(((ratio**2).mean().item())**(0.5))
