@@ -320,7 +320,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### IMPORTANT NOTE
 
-As I am about to turn in, I am just now realizing that I may have had the color permutation only on this whole time since I tried it (V4), meaning all of these features may have been helpful and I was just comparing them to the wrong models.
+As I am about to turn in, I am just now realizing that I may have (like 50/50) had the color permutation only on this whole time since I tried it (V4), meaning all of these features may have been helpful and I was just comparing them to the wrong models.
 
 
 ### flipper V11 (hail mary) — cifar — 2026-10-28
@@ -331,7 +331,7 @@ As I am about to turn in, I am just now realizing that I may have had the color 
 
 **Expected:** Maybe 0.57?
 
-**Result:** Acc:
+**Result:** Acc: 0.5457. Still not better. Perhaps I didn't make that mistake.
 
 
 ### no_aug V4 — imagenet32 — 2026-10-28
@@ -474,7 +474,7 @@ As I am about to turn in, I am just now realizing that I may have had the color 
 
 **Expected:** This may increase a bit more accuracy (2-3%)
 
-**Result:** Acc: 0.1158
+**Result:** Acc: 0.1161
 
 
 ### no_aug_2 V14 (deep) — imagenet32 — 2026-10-28
