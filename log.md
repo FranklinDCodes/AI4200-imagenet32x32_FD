@@ -186,7 +186,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Result:** Acc: 0.5447. That was so much more improvement than I expected to see. Very cool.
 
 
-### model_shift V8 (SwiGLU) — MNIST — 2026-10-28
+### model_shift V8 (SwiGLU) — MNIST — 2026-10-28 | BEST | now found at src/mnist_best
 
 **Change:** I had to go back to MNIST to try SwiGLU after I saw how much it improved cifar10. Exactly like model_shift V7 but SwiGLU blocks
 
@@ -208,7 +208,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Result:** Acc: 0.5471. Very negligible increase. 
 
 
-### flipper — cifar — 2026-10-28
+### flipper — cifar — 2026-10-28 | BEST | now found at src/cifar_best
 
 **Change:** Made to be exactly like no_aug V2 (the miniscule gains of V3 I figured weren't worth the computation) but there are 3 copies of each original image: original, flipped horizontally, flipped vertically.
 
@@ -316,6 +316,22 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Expected:** A miniscule increase or decrease over original 0.5526.
 
 **Result:** Acc: 0.5425. I guess I really struck gold with og Flipper.
+
+
+### IMPORTANT NOTE
+
+As I am about to turn in, I am just now realizing that I may have had the color permutation only on this whole time since I tried it (V4), meaning all of these features may have been helpful and I was just comparing them to the wrong models.
+
+
+### flipper V11 (hail mary) — cifar — 2026-10-28
+
+**Change:** Trying all the things I may have unfairly discarded since V4: twice as wide hidden blocks, 30 epochs
+
+**Why:** Cause I messed up (see note above)
+
+**Expected:** Maybe 0.57?
+
+**Result:** Acc:
 
 
 ### no_aug V4 — imagenet32 — 2026-10-28
@@ -450,7 +466,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 **Result:** Acc: 0.1102. Hooray!
 
 
-### no_aug_2 V13 (dropout) — imagenet32 — 2026-10-28
+### no_aug_2 V13 (dropout) — imagenet32 — 2026-10-28 | BEST | now found at src/imagenet_best
 
 **Change:** 20 epochs
 
@@ -469,4 +485,4 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** This may increase a bit more accuracy ~1%, but I am really not expecting much at all
 
-**Result:** Acc: 
+**Result:** Acc: 0.1131. Worse.
