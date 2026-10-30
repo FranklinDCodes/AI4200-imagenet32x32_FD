@@ -97,7 +97,6 @@ class ResidualMLP(nn.Module):
                 nn.init.zeros_(layer.bias)
 
         lins = [layer for layer in self.modules() if isinstance(layer, nn.Linear)]
-        np.savetxt("sample_weights.txt", lins[0].weight.detach().cpu().numpy())
 
     def forward(self, x):
         """Training forward pass. Returns raw logits (no softmax).

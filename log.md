@@ -320,7 +320,7 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 ### IMPORTANT NOTE
 
-As I am about to turn in, I am just now realizing that I may have (like 50/50) had the color permutation only on this whole time since I tried it (V4), meaning all of these features may have been helpful and I was just comparing them to the wrong models.
+As I am about to turn in, I am just now realizing that I may have (like 50/50 chance) had the color permutation only on this whole time since I tried it (V4), meaning all of these features may have been helpful and I was just comparing them to the wrong models.
 
 
 ### flipper V11 (hail mary) — cifar — 2026-10-28
@@ -457,7 +457,7 @@ As I am about to turn in, I am just now realizing that I may have (like 50/50) h
 
 ### no_aug_2 V12 (dropout) — imagenet32 — 2026-10-28
 
-**Change:** 2048 batches, 10 epochs, dropout
+**Change:** 2048 batches, 10 epochs, 0.3 dropout
 
 **Why:** It may help generalization with longer training
 

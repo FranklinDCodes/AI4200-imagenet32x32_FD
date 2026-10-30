@@ -1,3 +1,14 @@
+"""
+
+    This file is adapter from the .ipynb, but it does not report results.
+    Jupyter was failing on the cluster for me (I went to office hours and everything) so I made this to have more control over running it.
+
+"""
+
+
+
+
+
 # ---- Your submission: change these four lines -----------------------------
 
 # Your GitHub repository, in the form pip installs from. This example is the
