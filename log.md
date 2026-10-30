@@ -447,4 +447,15 @@ This is unfortunate because it pretty much showed to lower accuracy in the scena
 
 **Expected:** This may increase a bit more accuracy a tiny bit
 
+**Result:** Acc: 0.1102. Hooray!
+
+
+### no_aug_2 V13 (dropout) — imagenet32 — 2026-10-28
+
+**Change:** 20 epochs
+
+**Why:** I think that now that I am using dropout, longer training has less danger of overfitting and could be helpful
+
+**Expected:** This may increase a bit more accuracy (2-3%)
+
 **Result:** Acc: 

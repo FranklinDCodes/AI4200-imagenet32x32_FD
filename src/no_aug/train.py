@@ -31,6 +31,17 @@ def prepare(X):
 # Change anything inside them, but keep their names and arguments.
 # ---------------------------------------------------------------------------
 
+def get_activation_variance(model, input):
+
+    yhat, stream = model(input, True)
+
+    vars = list()
+    for h in stream:
+
+        vars.append(h.std(axis=1).mean().item())
+
+    return vars
+
 def train(task, X_train, y_train, seed=0, device="cuda"):
     """Build a new model and train it from scratch. Returns the trained model."""
     torch.manual_seed(seed)                   # makes the run reproducible
@@ -56,9 +67,19 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     loss_fn = nn.CrossEntropyLoss(weight=t_class_weights.to(device))           # expects raw logits # weight=t_class_weights
     optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
+    # d_vars = dict()
+    # d_vars["start"] = get_activation_variance(model, eval_set)
+
     # 4. The training loop.
     model.train()
     for epoch in range(EPOCHS[task]):
+
+
+        # grab variance
+        # if start or midpoint
+        # if epoch == 0 or epoch == (EPOCHS[task] + 1) // 2:
+        #     d_vars["mid"] = get_activation_variance(model, eval_set)
+
         total_loss = 0.0
         for X_batch, y_batch in loader:
             X_batch, y_batch = X_batch.to(device), y_batch.to(device)
@@ -73,6 +94,8 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
             total_loss += loss.item() * len(X_batch)
 
         print(f"epoch {epoch + 1}: train loss {total_loss / len(dataset):.4f}")
+
+    # d_vars["end"] = get_activation_variance(model, eval_set)
 
     return model
 
