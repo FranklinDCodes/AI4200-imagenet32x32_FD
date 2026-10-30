@@ -60,3 +60,10 @@ time,package_url,import_name,task,accuracy,train_minutes,seed
 2026-10-30 16:30,no_aug,no_aug,imagenet32,0.1080,20.5,0
 2026-10-30 16:56,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,no_aug,imagenet32,0.1080,20.1,0
 2026-10-30 17:27,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,no_aug,imagenet32,0.1131,25.4,0
+2026-10-30 17:59,no_aug,no_aug,imagenet32,0.1105,22.2,0
+2026-10-30 18:13,mnist_best,mnist_best,mnist,0.9840,12.4,0
+2026-10-30 18:13,git+https://github.com/FranklinDCodes/AI4200-imagenet32x32_FD.git,cifar_best,cifar10,0.5447,7.3,0
+2026-10-30 18:20,imagenet_best,imagenet_best,imagenet32,0.1161,20.0,0
+2026-10-30 18:22,cifar_best,cifar_best,cifar10,0.5447,8.5,0
+2026-10-30 18:29,no_aug,no_aug,imagenet32,0.1124,18.8,0
+2026-10-30 18:32,cifar_best,cifar_best,cifar10,0.5526,2.5,0
