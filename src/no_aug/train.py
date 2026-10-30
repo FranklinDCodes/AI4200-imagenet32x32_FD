@@ -1,6 +1,7 @@
 import torch
 import torch.nn as nn
 from torch.utils.data import DataLoader, TensorDataset
+from matplotlib import pyplot as plt
 
 from .model import TASKS, ResidualMLP
 
@@ -38,9 +39,26 @@ def get_activation_variance(model, input):
     vars = list()
     for h in stream:
 
-        vars.append(h.std(axis=1).mean().item())
+        vars.append(h.var(axis=1).mean().item())
 
     return vars
+
+def plot_log_series(data, path, title="", xlabel="", ylabel=""):
+    """Plot each list in `data` against its index (0, 1, 2, ...) on a log-scaled y axis
+    and save the figure to `path`."""
+    fig, ax = plt.subplots()
+
+    for name, values in data.items():
+        ax.plot(range(len(values)), values, label=name)
+
+    ax.set_yscale("log")
+    ax.set_title(title)
+    ax.set_xlabel(xlabel)
+    ax.set_ylabel(ylabel)
+    ax.legend()
+
+    fig.savefig(path, bbox_inches="tight")
+    plt.close(fig)
 
 def train(task, X_train, y_train, seed=0, device="cuda"):
     """Build a new model and train it from scratch. Returns the trained model."""
@@ -49,7 +67,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     # 1. Build the model for this task. Only input size and class count differ.
     model = ResidualMLP(**TASKS[task]).to(device)
 
-    #eval_set = X_train[:1024]
+    eval_set = X_train[:1024]
     X_train = X_train[1024:]
     y_train = y_train[1024:]
 
@@ -64,21 +82,20 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     print(f"Class weights: {t_class_weights.detach().cpu().numpy().tolist()}")
 
     # 3. Choose the loss and the optimizer.
-    loss_fn = nn.CrossEntropyLoss(weight=t_class_weights.to(device))           # expects raw logits # weight=t_class_weights
+    loss_fn = nn.CrossEntropyLoss(weight=t_class_weights.to(device))           # expects raw logits
     optimizer = torch.optim.AdamW(model.parameters(), lr=LEARNING_RATE)
 
-    # d_vars = dict()
-    # d_vars["start"] = get_activation_variance(model, eval_set)
+    d_vars = dict()
+    d_vars["init"] = get_activation_variance(model, eval_set)
 
     # 4. The training loop.
     model.train()
     for epoch in range(EPOCHS[task]):
 
-
         # grab variance
         # if start or midpoint
-        # if epoch == 0 or epoch == (EPOCHS[task] + 1) // 2:
-        #     d_vars["mid"] = get_activation_variance(model, eval_set)
+        if epoch == 0 or epoch == (EPOCHS[task] + 1) // 2:
+            d_vars["mid_training"] = get_activation_variance(model, eval_set)
 
         total_loss = 0.0
         for X_batch, y_batch in loader:
@@ -95,7 +112,9 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
 
         print(f"epoch {epoch + 1}: train loss {total_loss / len(dataset):.4f}")
 
-    # d_vars["end"] = get_activation_variance(model, eval_set)
+    d_vars["final"] = get_activation_variance(model, eval_set)
+
+    plot_log_series(d_vars, "plts/no_aug.png", "Variance over depth", "variance", "layer")
 
     return model
 
