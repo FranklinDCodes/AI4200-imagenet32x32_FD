@@ -143,7 +143,7 @@ def train(task, X_train, y_train, seed=0, device="cuda"):
     model = ResidualMLP(**TASKS[task]).to(device)
 
     eval_x = prepare(X_train[:1024]).to(device)
-    eval_y = y_train[:1024]
+    eval_y = torch.as_tensor(y_train[:1024]).long()
     X_train = X_train[1024:]
     y_train = y_train[1024:]
 
